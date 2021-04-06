@@ -9,11 +9,10 @@
 
     foreach($files as $file) {
         $path = $file[0];
-        $query = $_GET["query"];
 
         # Select entries matching the user-provided query, or all if no query was provided
-        if ((isset($query) && stristr(basename($path), $query))
-            || !isset($query)) {
+        if ((isset($_GET["query"]) && stristr(basename($path), $_GET["query"]))
+            || !isset($_GET["query"])) {
             array_push($imageFiles, $file[0]);
         }
     }
