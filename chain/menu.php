@@ -15,12 +15,8 @@
     foreach($files as $file) {
         $path = $file[0];
 
-        # Prepare for a case-insensitive search
-        $needle = strtolower($query);
-        $haystack = strtolower(basename($path));
-
         # Select entries matching the user-provided query
-        if (str_contains($haystack, $needle)) {
+        if (stristr(basename($path), $query)) {
             array_push($imageFiles, $file[0]);
         }
     }
