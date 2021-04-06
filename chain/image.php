@@ -63,14 +63,9 @@ boot
 :windows
 kernel tftp://<?= $host ?>/wimboot
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=bootmgr bootmgr
-initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=bootmgr.efi bootmgr.efi
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=boot/bcd BCD
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=boot/boot.sdi boot.sdi
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=sources/boot.wim boot.wim
-initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=boot/fonts/segmono_boot.ttf segmono_boot.ttf
-initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=segoe_slboot.ttf segoe_slboot.ttf
-initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=segoen_slboot.ttf segoen_slboot.ttf
-initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=wgl4_boot.ttf wgl4_boot.ttf
 boot
 
 :rhel
