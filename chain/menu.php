@@ -22,12 +22,10 @@
 menu Install an Operating System
 
 item --key l local Boot from (L)ocal hard disk
+item --key s search (S)earch...
 
 item --gap
 item --gap Operating Systems
-item --key s search (S)earch...
-item --gap
-
 <?
     # Loop through the detected operating systems and create menu items for every image
     for ($i = 0; $i < count($imageFiles); $i++) {
