@@ -44,6 +44,7 @@ choose option && goto ${option}
 ?>
 
 :memory
+kernel tftp://<?= $host ?>/memdisk
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&raw
 boot
 
