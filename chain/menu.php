@@ -1,11 +1,15 @@
 <?php
     # Loop through the operating systems, and create an array for them
-    $imagePaths = glob("$imageStore/*.iso");
+    $imageFiles = array();
 
-    # Convert from full-length paths to just filenames
-    $imageFiles = array_map(function($value) {
-        return basename($value);
-    }, $imagePaths);
+    # Recursively walk the image store
+    $dir = new RecursiveDirectoryIterator($imageStore);
+    $iter = new RecursiveIteratorIterator($dir);
+    $files = new RegexIterator($iter, "/.*\.iso/", RegexIterator::GET_MATCH);
+
+    foreach($files as $file) {
+        array_push($imageFiles, $file[0]);
+    }
 ?>
 #!ipxe
 
@@ -13,7 +17,7 @@ menu Install an Operating System
 <?
     # Loop through the detected operating systems and create menu items for every image
     for ($i = 0; $i < count($imageFiles); $i++) {
-        echo "item $i " . $imageFiles[$i] . "\n";
+        echo "item $i " . basename($imageFiles[$i]) . "\n";
     }
 ?>
 item shell iPXE Shell
@@ -23,10 +27,16 @@ choose option && goto \${option}
 <?
     # Loop through the operating systems and create a chainloader configuration
     for ($i = 0; $i < count($imageFiles); $i++) {
+        # Determine how much of the path is outside the image store path
+        $baseLength = strlen(trim($imageStore, "/")) + 1;
+
+        # Create a trimmed-down file path
+        $imagePath = substr($imageFiles[$i], $baseLength);
+
+        # Embed the image path into a chainloader item
         echo ":$i\n";
-        echo "chain $proto://$host/boot.php?image=" . urlencode($imagePaths[$i]) . "\n";
+        echo "chain $proto://$host/boot.php?image=" . urlencode($imagePath) . "\n";
     }
 ?>
-
 :shell
 shell
