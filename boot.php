@@ -1,12 +1,4 @@
 <?php
-    function preboot($error = null) {
-        include "chain/preboot.php";
-    }
-
-    function menu() {
-        include "chain/menu.php";
-    }
-
     # Determine the server hostname
     $host = $_SERVER["SERVER_NAME"];
 
@@ -28,11 +20,17 @@
             # TODO Check if the credentials are valid
             if (true) {
                 # Present the boot menu
-                menu();
-            } else preboot("Invalid username or password");
-        } else preboot("No credentials supplied");
+                include "chain/menu.php";
+            } else {
+                $error = "Invalid username or password";
+                include "chain/preboot.php";
+            }
+        } else {
+            $error = "No credentials supplied";
+            include "chain/preboot.php";
+        }
     } else {
         # First redirect to a preboot script which collects and sends client metadata
-        preboot();
+        include "chain/preboot.php";
     }
 ?>
