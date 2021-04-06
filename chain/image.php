@@ -27,9 +27,9 @@
 ?>
 #!ipxe
 
-menu Boot method
-item --key m memory Boot from (M)emory
-item --key w windows Boot with (W)indows PE
+menu What kind of operating system is this?
+item --key w windows (W)indows 7 or beyond
+item --key d memory I (D)on't know
 
 choose option && goto ${option}
 
