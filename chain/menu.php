@@ -16,6 +16,9 @@
             array_push($imageFiles, $file[0]);
         }
     }
+
+    # Alphabetically sort the images
+    sort($imageFiles);
 ?>
 #!ipxe
 
