@@ -27,9 +27,9 @@
 ?>
 #!ipxe
 
-menu What kind of operating system is this?
-item --key w windows (W)indows 7 or beyond
-item --key d memory I (D)on't know
+menu Which operating system is this?
+item --key w windows (W)indows 7 or beyond - Boot with Windows PE
+item memory Unsure - Try to boot with a memory disk
 
 choose option && goto ${option}
 
