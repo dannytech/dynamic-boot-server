@@ -48,7 +48,7 @@ initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&raw
 boot
 
 :windows
-kernel wimboot
+kernel tftp://<?= $host ?>/wimboot
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=boot/bcd BCD
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=boot/boot.sdi boot.sdi
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=sources/boot.wim boot.wim
