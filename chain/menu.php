@@ -21,12 +21,16 @@
 
 menu Install an Operating System
 item search Search...
+
+item --gap Operating Systems
 <?
     # Loop through the detected operating systems and create menu items for every image
     for ($i = 0; $i < count($imageFiles); $i++) {
         echo "item $i " . basename($imageFiles[$i]) . "\n";
     }
 ?>
+
+item --gap Other
 item shell iPXE Shell
 
 choose option && goto ${option}
@@ -34,6 +38,7 @@ choose option && goto ${option}
 :search
 echo -n Enter a search term:  && read query
 chain <?= $proto ?>://<?= $host ?>/boot.php?query=${query:uristring}
+
 <?
     # Loop through the operating systems and create a chainloader configuration
     for ($i = 0; $i < count($imageFiles); $i++) {
@@ -48,5 +53,6 @@ chain <?= $proto ?>://<?= $host ?>/boot.php?query=${query:uristring}
         echo "chain $proto://$host/boot.php?image=" . urlencode($imagePath) . "\n";
     }
 ?>
+
 :shell
 shell
