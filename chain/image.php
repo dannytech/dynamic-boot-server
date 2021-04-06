@@ -38,6 +38,7 @@ item --gap
 item --gap Linux
 item --key r rhel (R)ed Hat Enterprise Linux or similar
 item --key d debian (D)ebian or similar
+item --key a memory (A)rch Linux live
 
 item --gap
 item --gap Other
