@@ -1,9 +1,4 @@
 <?php
-    # Contruct a query
-    if (isset($_GET["query"])) {
-        $query = $_GET["query"];
-    } else $query = "";
-
     # Loop through the operating systems, and create an array for them
     $imageFiles = array();
 
@@ -14,9 +9,11 @@
 
     foreach($files as $file) {
         $path = $file[0];
+        $query = $_GET["query"];
 
-        # Select entries matching the user-provided query
-        if (stristr(basename($path), $query)) {
+        # Select entries matching the user-provided query, or all if no query was provided
+        if ((isset($query) && stristr(basename($path), $query))
+            || !isset($query)) {
             array_push($imageFiles, $file[0]);
         }
     }
