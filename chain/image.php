@@ -1,23 +1,28 @@
 <?php
-    # Determine the image type
+    # TODO Determine the image type
+
+    $imageFile = trim($imageStore, "/") . "/" . $image;
 
     # If the instruction is to stream an ISO to the client, then do so instead of chainloading
     if (isset($_GET["file"])) {
-        $imageFile = trim($imageStore, "/") . "/" . $_GET["image"];
-        
-        # Get the image MIME type
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $imageFile);
+        if (file_exists($imageFile)) {
+            # Get the image MIME type
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $imageFile);
 
-        # Send the content type (overrides top-level type)
-        header("Content-Type: $mimeType");
+            # Send the content type (overrides top-level type)
+            header("Content-Type: $mimeType");
 
-        # Stream the file contents
-        $fpointer = fopen($imageFile, "rb");
-        fpassthru($fpointer);
+            # Stream the file contents
+            $fpointer = fopen($imageFile, "rb");
+            fpassthru($fpointer);
 
-        # Prevent further execution
-        exit;
+            # Prevent further execution
+            exit;
+        } else {
+            http_response_code(404);
+            die();
+        }
     }
 ?>
 #!ipxe
