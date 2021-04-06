@@ -20,10 +20,14 @@
 #!ipxe
 
 menu Install an Operating System
-item --key s search (S)earch...
+
+item --key l local Boot from (L)ocal hard disk
 
 item --gap
 item --gap Operating Systems
+item --key s search (S)earch...
+item --gap
+
 <?
     # Loop through the detected operating systems and create menu items for every image
     for ($i = 0; $i < count($imageFiles); $i++) {
@@ -36,6 +40,9 @@ item --gap Other
 item --key p shell i(P)XE Shell
 
 choose option && goto ${option}
+
+:local
+sanboot --no-describe --drive 0x80
 
 :search
 echo -n Enter a search term: ${} && read query
