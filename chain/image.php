@@ -23,7 +23,7 @@
                 $file = $_GET["file"];
 
                 # Temporary storage location
-                $tmpDir = "\/tmp/" . uniqid() . "/";
+                $tmpDir = "/tmp/" . uniqid() . "/";
                 $tmpFile = $tmpDir . basename($file);
 
                 # Run 7zip to extract files from the ISO to a temporary location
