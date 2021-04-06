@@ -20,7 +20,7 @@
 #!ipxe
 
 menu Install an Operating System
-item search Search...
+item --key s search (S)earch...
 
 item --gap
 item --gap Operating Systems
@@ -33,7 +33,7 @@ item --gap Operating Systems
 
 item --gap
 item --gap Other
-item shell iPXE Shell
+item --key p shell i(P)XE Shell
 
 choose option && goto ${option}
 
