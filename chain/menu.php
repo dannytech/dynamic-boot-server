@@ -36,7 +36,7 @@ item shell iPXE Shell
 choose option && goto ${option}
 
 :search
-echo -n Enter a search term:  && read query
+echo -n Enter a search term: ${} && read query
 chain <?= $proto ?>://<?= $host ?>/boot.php?query=${query:uristring}
 
 <?
