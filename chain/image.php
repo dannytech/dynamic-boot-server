@@ -20,14 +20,14 @@
     if ((isset($_GET["file"]) || isset($_GET["raw"]))) {
         if (file_exists($imageFile)) {
             if (isset($_GET["file"])) {
-                $file = escapeshellarg($_GET["file"]);
+                $file = $_GET["file"];
                 $tmpFile = uniqid();
 
                 # Run 7zip to extract files from the ISO to a temporary location
-                exec("7z x $imageFile -o /tmp/$tmpFile \"$file\"");
+                exec("7z e '-i!$file' '-o/tmp/$tmpFile/' $imageFile");
 
                 # Stream the temporary file to the client
-                streamRaw("/tmp/$tmpFile");
+                streamRaw("/tmp/$tmpFile/" . basename($file));
             } else if (isset($_GET["raw"])) {
                 # Stream the entire image file to the client
                 streamRaw($imageFile);
