@@ -28,6 +28,9 @@
 #!ipxe
 
 menu Which operating system is this?
+item --gap <?= $image ?>
+
+item --gap
 item --gap Windows
 item --key w windows (W)indows 7 or beyond - Boot with Windows PE
 
