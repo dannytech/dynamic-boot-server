@@ -1,7 +1,7 @@
 <?php
     # TODO Determine the image type
 
-    $imageFile = trim($imageStore, "/") . "/" . $image;
+    $imageFile = rtrim($imageStore, "/") . "/" . $image;
 
     # If the instruction is to stream an ISO to the client, then do so instead of chainloading
     if (isset($_GET["file"])) {

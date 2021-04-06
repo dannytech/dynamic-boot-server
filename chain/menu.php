@@ -45,7 +45,7 @@ chain <?= $proto ?>://<?= $host ?>/boot.php?query=${query:uristring}
     # Loop through the operating systems and create a chainloader configuration
     for ($i = 0; $i < count($imageFiles); $i++) {
         # Determine how much of the path is outside the image store path
-        $baseLength = strlen(trim($imageStore, "/")) + 1;
+        $baseLength = strlen(rtrim($imageStore, "/")) + 1;
 
         # Create a trimmed-down file path
         $imagePath = substr($imageFiles[$i], $baseLength);
