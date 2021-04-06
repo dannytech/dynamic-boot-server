@@ -1,4 +1,9 @@
 <?php
+    # Contruct a query
+    if (isset($_GET["query"])) {
+        $query = $_GET["query"];
+    } else $query = "";
+
     # Loop through the operating systems, and create an array for them
     $imageFiles = array();
 
@@ -8,12 +13,22 @@
     $files = new RegexIterator($iter, "/.*\.iso/", RegexIterator::GET_MATCH);
 
     foreach($files as $file) {
-        array_push($imageFiles, $file[0]);
+        $path = $file[0];
+
+        # Prepare for a case-insensitive search
+        $needle = strtolower($query);
+        $haystack = strtolower(basename($path));
+
+        # Select entries matching the user-provided query
+        if (str_contains($haystack, $needle)) {
+            array_push($imageFiles, $file[0]);
+        }
     }
 ?>
 #!ipxe
 
 menu Install an Operating System
+item search Search...
 <?
     # Loop through the detected operating systems and create menu items for every image
     for ($i = 0; $i < count($imageFiles); $i++) {
@@ -24,6 +39,9 @@ item shell iPXE Shell
 
 choose option && goto \${option}
 
+:search
+echo -n "Enter a search term" && read query
+chain "<?= $proto ?>://<?= $host ?>/boot.php?query=\${query}"
 <?
     # Loop through the operating systems and create a chainloader configuration
     for ($i = 0; $i < count($imageFiles); $i++) {
