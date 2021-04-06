@@ -1,3 +1,6 @@
 # IDE-specific files
 .devcontainer/
 .vscode/
+
+# Do not check in environment-specific configuration files
+config.php

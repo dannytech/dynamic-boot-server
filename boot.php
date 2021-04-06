@@ -1,4 +1,6 @@
 <?php
+    include "config.php";
+
     # Determine the server hostname
     $host = $_SERVER["SERVER_NAME"];
 
@@ -10,12 +12,11 @@
     # Ensure that data is only sent as plaintext
     header("Content-Type: text/plain");
 
-    if (isset($_GET["mac"])) {
-        log("New iPXE client with MAC address " . $_GET["mac"]);
+    if (isset($_GET["image"])) {
+        $image = $_GET["image"];
 
-        include "chain/menu.php";
+        include "chain/image.php";
     } else {
-        # Show the preboot menu
-        include "chain/preboot.php";
+        include "chain/menu.php";
     }
 ?>

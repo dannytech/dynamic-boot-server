@@ -1,0 +1,3 @@
+<?php
+
+$imageStore = "/srv/isos";
