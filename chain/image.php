@@ -23,11 +23,10 @@
                 $file = $_GET["file"];
 
                 # Temporary storage location
-                $tmpDir = "/tmp/" . uniqid() . "/";
-                $tmpFile = $tmpDir . basename($file);
+                $tmpFile = "/tmp/" . uniqid();
 
                 # Run 7zip to extract files from the ISO to a temporary location
-                exec("7z e '-i!$file' '-o$tmpDir' $imageFile");
+                exec("7z e '-i!$file' -so $imageFile > $tmpFile");
 
                 # Stream the temporary file to the client
                 streamRaw($tmpFile);
