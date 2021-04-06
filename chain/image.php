@@ -28,7 +28,16 @@
 #!ipxe
 
 menu Which operating system is this?
+item --gap Windows
 item --key w windows (W)indows 7 or beyond - Boot with Windows PE
+
+item --gap
+item --gap Linux
+item --key r rhel (R)ed Hat Enterprise Linux or similar
+item --key d debian (D)ebian or similar
+
+item --gap
+item --gap Other
 item memory Unsure - Try to boot with a memory disk
 
 choose option && goto ${option}
@@ -53,4 +62,14 @@ kernel tftp://<?= $host ?>/wimboot
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=boot/bcd BCD
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=boot/boot.sdi boot.sdi
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=sources/boot.wim boot.wim
+boot
+
+:rhel
+kernel <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=images/pxeboot/vmlinuz initrd=initrd.img
+initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=images/pxeboot/initrd.img
+boot
+
+:debian
+kernel <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=casper/vmlinuz initrd=initrd
+initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&file=casper/initrd
 boot
