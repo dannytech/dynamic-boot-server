@@ -33,7 +33,7 @@ choose option && goto \${option}
 
 :search
 echo -n "Enter a search term" && read query
-chain "<?= $proto ?>://<?= $host ?>/boot.php?query=\${query}"
+chain "<?= $proto ?>://<?= $host ?>/boot.php?query=\${query:uristring}"
 <?
     # Loop through the operating systems and create a chainloader configuration
     for ($i = 0; $i < count($imageFiles); $i++) {
