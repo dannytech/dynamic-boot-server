@@ -21,7 +21,6 @@
 
 menu Install an Operating System
 
-item --key l local Boot from (L)ocal hard disk
 item --key s search (S)earch...
 
 item --gap
@@ -35,6 +34,7 @@ item --gap Operating Systems
 
 item --gap
 item --gap Other
+item --key l local Boot from (L)ocal hard disk
 item --key p shell i(P)XE Shell
 
 choose option && goto ${option}
