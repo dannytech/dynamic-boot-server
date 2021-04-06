@@ -1,19 +1,6 @@
 <?php
     # TODO Determine the image type
 
-    function streamRaw($file) {
-        # Get the image MIME type
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $file);
-
-        # Send the content type (overrides top-level type)
-        header("Content-Type: $mimeType");
-
-        # Stream the file contents
-        $fpointer = fopen($file, "rb");
-        fpassthru($fpointer);
-    }
-
     $imageFile = rtrim($imageStore, "/") . "/" . $image;
 
     # If the instruction is to extract a file from the image, then do so instead of chainloading
@@ -22,20 +9,12 @@
             if (isset($_GET["file"])) {
                 $file = $_GET["file"];
 
-                # Temporary storage location
-                $tmpFile = "/tmp/" . uniqid();
-
-                # Run 7zip to extract files from the ISO to a temporary location
-                exec("7z e '-i!$file' -so $imageFile > $tmpFile");
-
-                # Stream the temporary file to the client
-                streamRaw($tmpFile);
-
-                # Delete the extracted file
-                unlink($tmpFile);
+                # Run 7zip to extract the file from the ISO and stream it to the browser
+                passthru("7z e '-i!$file' -so $imageFile");
             } else if (isset($_GET["raw"])) {
                 # Stream the entire image file to the client
-                streamRaw($imageFile);
+                $fpointer = fopen($imageFile, "rb");
+                fpassthru($fpointer);
             }
 
             # Prevent further execution
