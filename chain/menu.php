@@ -22,6 +22,7 @@
 menu Install an Operating System
 item search Search...
 
+item --gap
 item --gap Operating Systems
 <?
     # Loop through the detected operating systems and create menu items for every image
@@ -30,6 +31,7 @@ item --gap Operating Systems
     }
 ?>
 
+item --gap
 item --gap Other
 item shell iPXE Shell
 
