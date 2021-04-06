@@ -21,13 +21,19 @@
         if (file_exists($imageFile)) {
             if (isset($_GET["file"])) {
                 $file = $_GET["file"];
-                $tmpFile = uniqid();
+
+                # Temporary storage location
+                $tmpDir = "\/tmp/" . uniqid() . "/";
+                $tmpFile = $tmpDir . basename($file);
 
                 # Run 7zip to extract files from the ISO to a temporary location
-                exec("7z e '-i!$file' '-o/tmp/$tmpFile/' $imageFile");
+                exec("7z e '-i!$file' '-o$tmpDir' $imageFile");
 
                 # Stream the temporary file to the client
-                streamRaw("/tmp/$tmpFile/" . basename($file));
+                streamRaw($tmpFile);
+
+                # Delete the extracted file
+                unlink($tmpFile);
             } else if (isset($_GET["raw"])) {
                 # Stream the entire image file to the client
                 streamRaw($imageFile);
