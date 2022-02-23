@@ -2,5 +2,8 @@
 .devcontainer/
 .vscode/
 
+# Packages
+vendor/
+
 # Do not check in environment-specific configuration files
 config.php

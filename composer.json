@@ -1,0 +1,5 @@
+{
+    "require": {
+        "vdechenaux/iso-9660": "dev-master"
+    }
+}
