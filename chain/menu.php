@@ -28,7 +28,7 @@ item --key s search (S)earch...
 
 item --gap
 item --gap Operating Systems
-<?
+<?php
     # Loop through the detected operating systems and create menu items for every image
     for ($i = 0; $i < count($imageFiles); $i++) {
         echo "item $i " . basename($imageFiles[$i]) . "\n";
@@ -49,7 +49,7 @@ sanboot --no-describe --drive 0x80
 echo -n Enter a search term: ${} && read query
 chain <?= $proto ?>://<?= $host ?>/boot.php?query=${query:uristring}
 
-<?
+<?php
     # Loop through the operating systems and create a chainloader configuration
     for ($i = 0; $i < count($imageFiles); $i++) {
         # Determine how much of the path is outside the image store path

@@ -1,3 +1,3 @@
 <?php
 
-$imageStore = "/srv/isos";
+$imageStore = "/mnt/isos";
