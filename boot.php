@@ -8,7 +8,7 @@
     include "config.php";
 
     # Determine the server hostname
-    $host = $_SERVER["SERVER_NAME"];
+    $host = $_SERVER["HTTP_HOST"];
 
     # Determine the server protocol being used
     if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] != "off") {
