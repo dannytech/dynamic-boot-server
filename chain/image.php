@@ -59,16 +59,6 @@ item memory Unsure - Try to boot with a memory disk
 
 choose option && goto ${option}
 
-<?
-    # TODO Check to make sure with realpath() that directory traversal is not taking place  
-    
-    # TODO Prevent command injection (when using 7z)
-
-    # TODO This can also read files that are not .iso
-
-    # Boot by storing the file in memory
-?>
-
 :memory
 kernel tftp://<?= $host ?>/memdisk
 initrd <?= $proto ?>://<?= $host ?>/boot.php?image=<?= $image ?>&raw
