@@ -1,28 +1,41 @@
 <?php
-    # TODO Determine the image type
+    $image = $_GET["image"];
 
-    $imageFile = rtrim($imageStore, "/") . "/" . $image;
+    # Get absolute path to image file
+    $imageFile = realpath($imageStore . "/" . $image);
 
-    # If the instruction is to extract a file from the image, then do so instead of chainloading
-    if ((isset($_GET["file"]) || isset($_GET["raw"]))) {
-        if (file_exists($imageFile)) {
-            if (isset($_GET["file"])) {
-                $file = $_GET["file"];
+    # (Hopefully) prevent LFI
+    if (strncmp($imageFile, $imageStore, strlen($imageStore)) != 0) {
+        http_response_code(403);
+        die();
+    }
 
-                # Run 7zip to extract the file from the ISO and stream it to the browser
-                passthru("7z e '-i!$file' -so $imageFile");
-            } else if (isset($_GET["raw"])) {
-                # Stream the entire image file to the client
-                $fpointer = fopen($imageFile, "rb");
-                fpassthru($fpointer);
-            }
+    # Ensure the target ISO actually exists
+    if (!file_exists($imageFile)) {
+        http_response_code(404);
+        die();
+    }
 
-            # Prevent further execution
-            exit;
+    # Stream files instead of chainloading
+    if (isset($_GET["file"])) {
+        $file = $_GET["file"];
+
+        if (file_exists("iso9660://$imageFile#$file")) {
+            # Stream a file directly off the CDFS
+            $fpointer = fopen("iso9660://$imageFile#$file", "rb");
+            fpassthru($fpointer);
+
+            exit();
         } else {
             http_response_code(404);
             die();
         }
+    } else if (isset($_GET["raw"])) {
+        # Stream the entire image file to the client
+        $fpointer = fopen($imageFile, "rb");
+        fpassthru($fpointer);
+
+        exit();
     }
 ?>
 #!ipxe
